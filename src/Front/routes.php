@@ -57,7 +57,11 @@ function routes(\Slim\App $app)
             ->filterByUserId($user->getId())
             ->orderByDate()
             ->find();
-        $calendar = new Calendar();
+        $timezone = \Sabre\VObject\Reader::read(fopen(__DIR__.'/files/Paris.ics','r'));
+        $calendar = new Calendar([
+            'X-WR-CALNAME' => 'City Junior '.$user->getName()
+        ]);
+        $calendar->add($timezone->VTIMEZONE);
         foreach ($missions as $mission)
         {
             $start = clone $mission->getDate();
@@ -69,20 +73,24 @@ function routes(\Slim\App $app)
             $end->add($mission->getStart()->diff($mission->getEnd(), true));
         	$event = $calendar->add('VEVENT', [
                 'SUMMARY' => $mission->getName(),
-                'DESCRIPTION' => '',
+                'DESCRIPTION' => 'Mission City Junior\n\n'.
+                                 '  • Type : '.$mission->getType().'\n'.
+                                 '  • Date : '.$mission->getDate()->format('d/m/Y').'\n'.
+                                 '  • Départ : '.$mission->getName().'\n'.
+                                 '  • Début : '.$mission->getStart()->format('H:i').'\n'.
+                                 '  • Fin : '.$mission->getEnd()->format('H:i').'\n'.
+                                 '  • Arrivée : '.$mission->getArrival().'\n',
                 'STATUS' => 'CONFIRMED',
                 'DTSTART' => $start,
                 'DTEND' => $end,
                 'LOCATION' => $mission->getName(),
                 'ATTENDEE' => 'mailto:'.$user->getMail()
             ]);
-            $event->add(
-                'ORGANIZER',
+            $event->add('ORGANIZER',
                 'mailto:noreply@cityjunior.clmb.fr',
                 [
                    'CN'   => 'City Junior'
-                ]
-            );
+                ]);
             $event->add('VALARM', [
                 'ACTION' => 'DISPLAY',
                 'TRIGGER' => '-PT10M',
