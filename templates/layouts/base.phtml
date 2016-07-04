@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr" prefix="og: http://ogp.me/ns#">
+    <head>
+        {% block head %}
+        <meta charset="utf-8" />
+        <title>{% if page.title %}{{ page.title }} &middot; {% endif %}Application City Junior</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <link rel="stylesheet" href="/assets/styles/cj.css" />
+        <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
+        {% include 'includes/favicons.html' %}
+        {% endblock %}
+    </head>
+    <body>
+      <main role="main" class="{% block class %}{% endblock %}">{% block content %}{% endblock %}</main>
+      <footer role="contentinfo">
+        <div class="license">
+          <small>© {{ "now"|date("Y") }} <a href="http://colombaro.fr">Léo Colombaro</a></small>
+        </div>
+      </footer>
+        {% block js %}
+        {% endblock %}
+    </body>
+</html>

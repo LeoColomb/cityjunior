@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database name="default" defaultIdMethod="native" namespace="Data" defaultPhpNamingMethod="underscore">
+  <table name="cj__missions" idMethod="native" phpName="Mission">
+    <column name="ID" phpName="Id" type="CHAR" size="64" primaryKey="true" required="true"/>
+    <column name="type" phpName="Type" type="VARCHAR" size="250" required="true"/>
+    <column name="date" phpName="Date" type="DATE" required="true"/>
+    <column name="name" phpName="Name" type="VARCHAR" size="250" required="true"/>
+    <column name="start" phpName="Start" type="TIME" required="true"/>
+    <column name="arrival" phpName="Arrival" type="VARCHAR" size="250"/>
+    <column name="end" phpName="End" type="TIME" required="true"/>
+    <column name="code" phpName="Code" type="FLOAT"/>
+    <column name="confirmed" phpName="Confirmed" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
+    <column name="user_id" phpName="UserId" type="INTEGER" required="true" defaultValue="0"/>
+    <foreign-key foreignTable="cj__users" name="FK__cj__users">
+      <reference local="user_id" foreign="ID"/>
+    </foreign-key>
+    <index name="FK__cj__users">
+      <index-column name="user_id"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="cj__users" idMethod="native" phpName="User">
+    <column name="ID" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="name" phpName="Name" type="VARCHAR" size="50" required="true"/>
+    <column name="password" phpName="Password" type="VARCHAR" size="50" required="true"/>
+    <column name="mail" phpName="Mail" type="VARCHAR" size="100" required="true"/>
+    <column name="missions" phpName="MissionsNb" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="session" phpName="Session" type="VARCHAR" size="50"/>
+    <column name="validity" phpName="Validity" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
+    <index name="name">
+      <index-column name="name"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+</database>
