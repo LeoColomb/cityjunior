@@ -2,8 +2,7 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-if (PHP_SAPI == 'cli-server')
-{
+if (PHP_SAPI == 'cli-server') {
     // To help the built-in PHP dev server, check if the request was actually for
     // something which should probably be served as a static file
     $file = __DIR__ . $_SERVER['REQUEST_URI'];
@@ -12,22 +11,20 @@ if (PHP_SAPI == 'cli-server')
     }
 }
 
-define('LOG_FILE', __DIR__ . '/../logs/app.log');
-
 require_once __DIR__ . '/../generated-conf/config.php';
 
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-$serviceContainer->setLogger('DATA', new Logger('DATA', [new StreamHandler(LOG_FILE, Logger::DEBUG)]));
+define('LOG_FILE', __DIR__ . '/../logs/app.log');
+define('LOG_LEVEL', Logger::DEBUG);
 
-if (PHP_SAPI == 'cli' && PHP_SAPI !== 'cli-server')
-{
+$serviceContainer->setLogger('DATA', new Logger('DATA', [new StreamHandler(LOG_FILE, LOG_LEVEL)]));
+
+if (PHP_SAPI == 'cli' && PHP_SAPI !== 'cli-server') {
     // Then
     App\base();
-}
-else
-{
+} else {
     // Web index
     session_start();
 

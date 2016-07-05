@@ -5,6 +5,8 @@ namespace App\Notification;
 use Data\Mission;
 use Data\User;
 
+use App\Calendar;
+
 class MailNotification implements NotificationInterface
 {
     const ATTACHEMENT_ABILITY = true;
@@ -24,7 +26,7 @@ class MailNotification implements NotificationInterface
         $this->hash = md5(date('r', time()));
 
         $this->subject .= $mission->getName();
-        $this->subject .= ' le '.$mission->getDate()->format('d/m/Y');
+        $this->subject .= ' le '.$mission->getDateFromatted();
 
         $this->add('mixed', [
             'Type' => 'multipart/alternative; boundary="PHP-alt-'.$this->hash.'"',
@@ -87,6 +89,6 @@ class MailNotification implements NotificationInterface
         $this->add('mixed', [
             'Type' => 'text/calendar; name="Mission.ics"; method=REQUEST; charset="UTF-8"',
             'Transfer-Encoding' => '8bit',
-        ], chunk_split(base64_encode($raw)));
+        ], chunk_split(base64_encode((string) new Calendar($mission, $this->user))));
     }
 }

@@ -36,7 +36,7 @@ class Fetch
         $stack = HandlerStack::create();
         $stack->push(
             Middleware::log(
-                new Logger('HTTP', [new StreamHandler(LOG_FILE, Logger::DEBUG)]),
+                new Logger('HTTP', [new StreamHandler(LOG_FILE, LOG_LEVEL)]),
                 new MessageFormatter(MessageFormatter::SHORT)
             )
         );

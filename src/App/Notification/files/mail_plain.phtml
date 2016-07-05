@@ -3,12 +3,10 @@ Bonjour,
 Une nouvelle mission est disponible sur votre espace personnel.
 Détails de la mission :
 	Type : <?= $mission->getType(); ?>.
-	Date : <?= $mission->getDate()->format('d/m/Y'); ?>.
+	Date : <?= $mission->getDateFromatted(); ?>.
 	Départ : <?= $mission->getName(); ?>.
-	Debut : <?= $mission->getStart()->format('H\hi'); ?>.
-	Fin : <?= $mission->getEnd()->format('H\hi'); ?>.
+	Debut : <?= $mission->getStartFromatted(); ?>.
+	Fin : <?= $mission->getEndFromatted(); ?>.
 <?php if ($mission->getArrival()) : ?>
 	Arrivée : <?= $mission->getArrival(); ?>.
 <?php endif; ?>
-
-

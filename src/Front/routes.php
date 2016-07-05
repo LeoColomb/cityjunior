@@ -5,9 +5,7 @@ namespace Front;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-use Sabre\VObject\Component\VCalendar as Calendar;
-use Sabre\VObject\Component\VEvent as Event;
-use Sabre\VObject\Component\VAlarm as Alarm;
+use App\Calendar;
 
 use Data\User;
 use Data\UserQuery;
@@ -59,62 +57,13 @@ function routes(\Slim\App $app)
             $this->logger->debug("Not a known user", ['user' => $args['user']]);
         	return false;
         }
-
         $missions = MissionQuery::create()
             ->filterByUserId($user->getId())
             ->orderByDate()
             ->find();
-        $calendar = new Calendar([
-            'X-WR-CALNAME' => 'City Junior '.$user->getName()
-        ]);
-        $timezone = \Sabre\VObject\Reader::read(fopen(__DIR__.'/files/Paris.ics','r'));
-        $calendar->add($timezone->VTIMEZONE);
-        foreach ($missions as $mission)
-        {
-            $this->logger->debug("Creating VEVENT composent", [
-                'user' => $user->getName(),
-                'mission' => $mission->getID()
-            ]);
-            $start = clone $mission->getDate();
-            $start->setTime(
-                    $mission->getStart()->format('G'),
-                    $mission->getStart()->format('i')
-                );
-            $end = clone $start;
-            $end->add($mission->getStart()->diff($mission->getEnd(), true));
-        	$event = $calendar->add('VEVENT', [
-                'SUMMARY' => $mission->getName(),
-                'DESCRIPTION' => 'Mission City Junior\n\n'.
-                                 '  • Type : '.$mission->getType().'\n'.
-                                 '  • Date : '.$mission->getDate()->format('d/m/Y').'\n'.
-                                 '  • Départ : '.$mission->getName().'\n'.
-                                 '  • Début : '.$mission->getStart()->format('H\hi').'\n'.
-                                 '  • Fin : '.$mission->getEnd()->format('H\hi').'\n'.
-                                 '  • Arrivée : '.$mission->getArrival().'\n',
-                'STATUS' => 'CONFIRMED',
-                'DTSTART' => $start,
-                'DTEND' => $end,
-                'LOCATION' => $mission->getName(),
-                'ATTENDEE' => 'mailto:'.$user->getMail()
-            ]);
-            $event->add('ORGANIZER',
-                'mailto:noreply@cityjunior.clmb.fr',
-                [
-                   'CN'   => 'City Junior'
-                ]);
-            $event->add('VALARM', [
-                'ACTION' => 'DISPLAY',
-                'TRIGGER' => '-PT10M',
-                'DESCRIPTION' => 'Prise de poste'
-            ]);
-            $event->add('VALARM', [
-                'ACTION' => 'DISPLAY',
-                'TRIGGER' => $mission->getType() == 'Astreinte' ? '-PT30M' : '-PT1H',
-                'DESCRIPTION' => 'Réveil'
-            ]);
-        }
+
         $response = $response->withHeader('Content-type', 'text/calendar; charset=utf-8');
-        $response->write($calendar->serialize());
+        $response->write((string) new Calendar($missions, $user));
         return $response;
     })->setName('calendar');
 }

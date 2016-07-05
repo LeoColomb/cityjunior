@@ -16,5 +16,18 @@ use Data\Base\Mission as BaseMission;
  */
 class Mission extends BaseMission
 {
+    public function getStartFormatted()
+    {
+        return $this->getStart()->format('G\hi');
+    }
 
+    public function getEndFormatted()
+    {
+        return $this->getEnd()->format('G\hi');
+    }
+
+    public function getDateFormatted()
+    {
+        return $this->getDate()->format('d/m/Y');
+    }
 }

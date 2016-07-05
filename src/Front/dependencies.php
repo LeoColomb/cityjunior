@@ -27,7 +27,7 @@ function dependencies(\Interop\Container\ContainerInterface $container)
         $logger = new \Monolog\Logger($settings['name']);
         $logger->pushProcessor(new \Monolog\Processor\UidProcessor());
         $logger->pushHandler(new \Monolog\Handler\StreamHandler($settings['path'],
-            \Monolog\Logger::DEBUG));
+            LOG_LEVEL));
         return $logger;
     };
 }

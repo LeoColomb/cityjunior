@@ -13,8 +13,8 @@ use Monolog\Handler\StreamHandler;
 
 function base()
 {
-    $log = new Logger('App');
-    $log->pushHandler(new StreamHandler(LOG_FILE, Logger::DEBUG));
+    $log = new Logger('APP');
+    $log->pushHandler(new StreamHandler(LOG_FILE, LOG_LEVEL));
 
     $users = UserQuery::create()->find();
     foreach ($users as $user) {
@@ -27,7 +27,10 @@ function base()
                 ->filterByPrimaryKey($missionRaw['ID'])
                 ->findOneOrCreate();
             if ($mission->getType()) {
-            	$log->debug('Mission already saved. ID: '.$mission->getID());
+                $log->debug('Mission already saved', [
+                    'user' => $user->getName(),
+                    'mission' => $mission->getID()
+                ]);
                 continue;
             }
             $log->debug('New mission', [
