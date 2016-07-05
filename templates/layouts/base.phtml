@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="fr" prefix="og: http://ogp.me/ns#">
-    <head>
-        {% block head %}
-        <meta charset="utf-8" />
-        <title>{% if page.title %}{{ page.title }} &middot; {% endif %}Application City Junior</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-        <link rel="stylesheet" href="/assets/styles/cj.css" />
-        <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
-        {\\% include 'includes/favicons.html' %\\}
-        {% endblock %}
-    </head>
-    <body>
-      <main role="main" class="{% block class %}{% endblock %}">{% block content %}{% endblock %}</main>
-      <footer role="contentinfo">
-        <div class="license">
-          <small>© {{ "now"|date("Y") }} <a href="http://colombaro.fr">Léo Colombaro</a></small>
+<head>
+    {% block head %}
+    <meta charset="utf-8" />
+    <title>{% if page.title %}{{ page.title }} &middot; {% endif %}Application City Junior</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.2.1/foundation.min.css" />
+    <link rel="stylesheet" href="/assets/styles/cj.css" />
+    <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
+    {% endblock %}
+</head>
+<body>
+    <div class="top-bar" style="margin-bottom: 5vh;">
+        <div class="text-center">
+            <strong>Application City Junior</strong>
         </div>
-      </footer>
-        {% block js %}
-        {% endblock %}
-    </body>
+    </div>
+    <main role="main" class="{% block class %}{% endblock %}">{% block content %}{% endblock %}</main>
+    <footer role="contentinfo">
+        <div class="row text-center">
+            <small>© {{ "now" | date("Y") }} <a href="http://colombaro.fr">Léo Colombaro</a> <span class="text-muted">&mdash; Made with <span style="color: pink;">&hearts;</span> by <a href="http://colombaro.fr">Léo Colombaro</a></span></small>
+        </div>
+    </footer>
+    {% block js %}
+    {% endblock %}
+</body>
 </html>

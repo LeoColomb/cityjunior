@@ -26,8 +26,10 @@ function dependencies(\Interop\Container\ContainerInterface $container)
         $settings = $container->get('settings')['logger'];
         $logger = new \Monolog\Logger($settings['name']);
         $logger->pushProcessor(new \Monolog\Processor\UidProcessor());
+        $logger->pushProcessor(new \Monolog\Processor\WebProcessor());
         $logger->pushHandler(new \Monolog\Handler\StreamHandler($settings['path'],
             LOG_LEVEL));
+        $logger->info('Routing', [$container['request']->getUri()->getPath()] + $container['request']->getQueryParams());
         return $logger;
     };
 }

@@ -33,11 +33,12 @@ class Fetch
      */
     public function __construct(User $user)
     {
+        $this->user = $user;
         $stack = HandlerStack::create();
         $stack->push(
             Middleware::log(
                 new Logger('HTTP', [new StreamHandler(LOG_FILE, LOG_LEVEL)]),
-                new MessageFormatter(MessageFormatter::SHORT)
+                new MessageFormatter('"{method} {target} HTTP/{version}" {code}'.$this->user->getName())
             )
         );
         $this->client = new Client([
@@ -46,7 +47,6 @@ class Fetch
             'headers' => ['User-Agent' => 'CityJuniorApp/1.0 (Leo Colombaro Plateform) Mozilla/5.0 (Linux) AppleWebKit/537.36 (KHTML, like Gecko)'],
             'handler' => $stack,
             ]);
-        $this->user = $user;
         $response = $this->client->post('index.php', [
             'form_params' => [
                 'login' => $this->user->getName(),

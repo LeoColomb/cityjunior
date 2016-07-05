@@ -50,7 +50,11 @@ function base()
                 ->save();
 
             if (!$mission->getConfirmed()) {
-                foreach (['MailNotification', 'SMSNotification'] as $notifier) {
+                $notifiers = ['MailNotification'];
+                if ($user->getName() == 'CL407678') {
+                	$notifiers += ['SMSNotification'];
+                }
+                foreach ($notifiers as $notifier) {
                     $log->info('Preparing a new notification', [
                         'user' => $user->getName(),
                         'mission' => $mission->getID(),

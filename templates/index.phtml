@@ -2,5 +2,26 @@
 
 {% block class %}home{% endblock %}
 {% block content %}
-WIP
+<div class="row">
+    <div class="large-5 medium-7 medium-centered columns">
+        <form class="callout" action="/user" method="post">
+            <label for="name">
+                Identifiant City Junior
+                <input type="text" maxlength="8" placeholder="DL001822" id="name" name="name" required>
+            </label>
+            <label for="password">
+                Mot de passe City Junior
+                <input type="password" id="password" name="password" required>
+            </label>
+            <label for="mail">
+                E-mail
+                <input type="email" placeholder="dupond.lucie@gmail.com" id="mail" name="mail" required>
+            </label>
+            <p>
+                <small>En cliquant sur Inscription, vous acceptez les <a href="">Conditions générales d'utilisation</a> du service.</small>
+            </p>
+            <input class="button large expanded" type="submit" value="Inscription" />
+        </form>
+    </div>
+</div>
 {% endblock %}
