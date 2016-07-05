@@ -51,8 +51,15 @@ function routes(\Slim\App $app)
     });
 
     $app->get('/calendar/{user}', function (Request $request, Response $response, $args) {
+        $this->logger->info("Slim-Skeleton '/calendar' route", ['user' => $args['user']]);
         $user = UserQuery::create()
                     ->findOneByName($args['user']);
+        if (!$user)
+        {
+            $this->logger->debug("Not a known user", ['user' => $args['user']]);
+        	return false;
+        }
+
         $missions = MissionQuery::create()
             ->filterByUserId($user->getId())
             ->orderByDate()
@@ -64,6 +71,10 @@ function routes(\Slim\App $app)
         $calendar->add($timezone->VTIMEZONE);
         foreach ($missions as $mission)
         {
+            $this->logger->debug("Creating VEVENT composent", [
+                'user' => $user->getName(),
+                'mission' => $mission->getID()
+            ]);
             $start = clone $mission->getDate();
             $start->setTime(
                     $mission->getStart()->format('G'),
