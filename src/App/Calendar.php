@@ -75,16 +75,21 @@ class Calendar
                                 '  • Début : '.$mission->getStartFormatted()."\n".
                                 '  • Fin : '.$mission->getEndFormatted()."\n".
                                 '  • Arrivée : '.$mission->getArrival()."\n",
+            'CATEGORIES' => $mission->getType(),
             'STATUS' => 'CONFIRMED',
             'DTSTART' => $start,
             'DTEND' => $end,
-            'LOCATION' => $mission->getName(),
-            'ATTENDEE' => 'mailto:'.$this->user->getMail()
+            'LOCATION' => $mission->getName()
         ]);
+        $event->add('ATTENDEE',
+            'mailto:'.$this->user->getMail(),
+            [
+                'CN' => $this->user->getName()
+            ]);
         $event->add('ORGANIZER',
             'mailto:noreply@cityjunior.clmb.fr',
             [
-                'CN'   => 'City Junior'
+                'CN' => 'City Junior'
             ]);
         $event->add('VALARM', [
             'ACTION' => 'DISPLAY',
