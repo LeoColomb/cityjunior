@@ -57,10 +57,10 @@ function routes(\Slim\App $app)
             ->filterByUserId($user->getId())
             ->orderByDate()
             ->find();
-        $timezone = \Sabre\VObject\Reader::read(fopen(__DIR__.'/files/Paris.ics','r'));
         $calendar = new Calendar([
             'X-WR-CALNAME' => 'City Junior '.$user->getName()
         ]);
+        $timezone = \Sabre\VObject\Reader::read(fopen(__DIR__.'/files/Paris.ics','r'));
         $calendar->add($timezone->VTIMEZONE);
         foreach ($missions as $mission)
         {
@@ -77,8 +77,8 @@ function routes(\Slim\App $app)
                                  '  • Type : '.$mission->getType().'\n'.
                                  '  • Date : '.$mission->getDate()->format('d/m/Y').'\n'.
                                  '  • Départ : '.$mission->getName().'\n'.
-                                 '  • Début : '.$mission->getStart()->format('H:i').'\n'.
-                                 '  • Fin : '.$mission->getEnd()->format('H:i').'\n'.
+                                 '  • Début : '.$mission->getStart()->format('H\hi').'\n'.
+                                 '  • Fin : '.$mission->getEnd()->format('H\hi').'\n'.
                                  '  • Arrivée : '.$mission->getArrival().'\n',
                 'STATUS' => 'CONFIRMED',
                 'DTSTART' => $start,

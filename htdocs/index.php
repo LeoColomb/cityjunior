@@ -12,14 +12,14 @@ if (PHP_SAPI == 'cli-server')
     }
 }
 
-define('LOGGER_FILE', __DIR__ . '/../logs/app.log');
+define('LOG_FILE', __DIR__ . '/../logs/app.log');
 
 require_once __DIR__ . '/../generated-conf/config.php';
 
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-$serviceContainer->setLogger('DATA', new Logger('DATA', [new StreamHandler(LOGGER_FILE, Logger::DEBUG)]));
+$serviceContainer->setLogger('DATA', new Logger('DATA', [new StreamHandler(LOG_FILE, Logger::DEBUG)]));
 
 if (PHP_SAPI == 'cli' && PHP_SAPI !== 'cli-server')
 {

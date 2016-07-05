@@ -5,8 +5,8 @@ Détails de la mission :
 	Type : <?= $mission->getType(); ?>.
 	Date : <?= $mission->getDate()->format('d/m/Y'); ?>.
 	Départ : <?= $mission->getName(); ?>.
-	Debut : <?= $mission->getStart()->format('H:i'); ?>.
-	Fin : <?= $mission->getEnd()->format('H:i'); ?>.
+	Debut : <?= $mission->getStart()->format('H\hi'); ?>.
+	Fin : <?= $mission->getEnd()->format('H\hi'); ?>.
 <?php if ($mission->getArrival()) : ?>
 	Arrivée : <?= $mission->getArrival(); ?>.
 <?php endif; ?>

@@ -2,21 +2,39 @@
 
 namespace App;
 
-use Data\Mission;
+use App\Notification\MailNotification;
+use App\Notification\SMSNotification;
 use App\Notification\NotificationException;
-use Propel\Runtime\Exception\PropelException;
+use Data\MissionQuery;
+use Data\UserQuery;
+
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 function base()
 {
-    $users = \Data\UserQuery::create()->find();
+    $log = new Logger('App');
+    $log->pushHandler(new StreamHandler(LOG_FILE, Logger::DEBUG));
+
+    $users = UserQuery::create()->find();
     foreach ($users as $user) {
-        echo $user->getName();
+        $log->debug('Starting analysis for the next user', ['user' => $user->getName()]);
         $fetcher = new Fetch($user);
         $missions = $fetcher->fetch();
 
         foreach ($missions as $missionRaw) {
-            $mission = new Mission();
-            $mission->setId($missionRaw['ID'])
+            $mission = MissionQuery::create()
+                ->filterByPrimaryKey($missionRaw['ID'])
+                ->findOneOrCreate();
+            if ($mission->getType()) {
+            	$log->debug('Mission already saved. ID: '.$mission->getID());
+                continue;
+            }
+            $log->debug('New mission', [
+                'user' => $user->getName(),
+                'mission' => $mission->getID()
+            ]);
+            $mission
                 ->setType($missionRaw['Type'])
                 ->setDate(\DateTime::createFromFormat('d/m/Y', $missionRaw['Date']))
                 ->setName($missionRaw["D\xC3\xA9part/Gare"])
@@ -25,25 +43,30 @@ function base()
                 ->setEnd($missionRaw['Fin'])
                 ->setCode($missionRaw['Code'] == "\xC2\xA0" ? null : $missionRaw['Code'])
                 ->setConfirmed(strpos($missionRaw['Confirmee'], ' non ') == false)
-                ->setUserId($user->getId());
-            try {
-                $mission->save();
-            } catch (PropelException $exception) {
-                echo 'Already saved';
-                continue;
-            }
+                ->setUserId($user->getId())
+                ->save();
 
             if (!$mission->getConfirmed()) {
-                $notif = new Notification\MailNotification($mission, $user);
-                if ($notif::$hasAttachmentAbility) {
-                    $notif->attach($fetcher->attachment($mission->getId(), $mission->getType()));
-                }
+                foreach (['MailNotification', 'SMSNotification'] as $notifier) {
+                    $log->info('Preparing a new notification', [
+                        'user' => $user->getName(),
+                        'mission' => $mission->getID(),
+                        'notifier' => $notifier
+                    ]);
+                    $notif = new $notifier($mission, $user);
+                    if ($notif::ATTACHEMENT_ABILITY) {
+                        $notif->attach($fetcher->attachment($mission->getId(), $mission->getType()));
+                    }
 
-                try {
                     $notif->send();
-                } catch (NotificationException $exception) {
                 }
+            } else {
+                $log->debug('Mission already confirmed', [
+                    'user' => $user->getName(),
+                    'mission' => $mission->getID()
+                ]);
             }
+
         }
     }
 }

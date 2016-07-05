@@ -7,19 +7,16 @@ use Data\User;
 
 class MailNotification implements NotificationInterface
 {
-    public static $hasAttachmentAbility = true;
+    const ATTACHEMENT_ABILITY = true;
 
     protected $subject = '[City Junior] Mission ';
 
     protected $body = "\r\nThis is a MIME encoded message.\r\n";
 
-    protected $hash;
-
     protected $user;
 
-    /**
-     *
-     */
+    protected $hash;
+
     public function __construct(Mission $mission, User $user)
     {
         $this->user = $user;

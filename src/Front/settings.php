@@ -10,7 +10,7 @@ function settings()
 {
     return [
         'settings' => [
-            'displayErrorDetails' => true, // set to false in production
+            'displayErrorDetails' => false, // set to false in production
 
             // Twig settings
             'view' => [
@@ -22,7 +22,7 @@ function settings()
             // Monolog settings
             'logger' => [
                 'name' => 'FRONT',
-                'path' => LOGGER_FILE
+                'path' => LOG_FILE
             ]
         ],
     ];

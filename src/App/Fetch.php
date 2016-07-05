@@ -36,8 +36,8 @@ class Fetch
         $stack = HandlerStack::create();
         $stack->push(
             Middleware::log(
-                new Logger('HTTP', [new StreamHandler(LOGGER_FILE, Logger::DEBUG)]),
-                new MessageFormatter('{req_body} - {res_body}')
+                new Logger('HTTP', [new StreamHandler(LOG_FILE, Logger::DEBUG)]),
+                new MessageFormatter(MessageFormatter::SHORT)
             )
         );
         $this->client = new Client([
@@ -67,8 +67,22 @@ class Fetch
      */
     public function fetch()
     {
+        $missions = $this->doFetch();
+        $now = new \DateTime();
+        if ((int) $now->format('n') < (int) $now->add(new \DateInterval('P10D'))->format('n')) {
+            $missions += $this->doFetch([
+                        'semaine' => $now->format('Y-n').'-1',
+                        'mois' => $now->add(new \DateInterval('P10D'))->format('Y-n').'-1'
+                    ]);
+        }
+
+        return $missions;
+    }
+
+    private function doFetch(array $params = [])
+    {
         $response = $this->client->post('planet.php', [
-            'form_params' => [
+            'form_params' => $params + [
                 'nom_affichage' => 'sous_menu',
                 'sous_menu' => '',
                 'action' => 'inc.suiviMissionsTrain.php',
