@@ -25,12 +25,12 @@ function routes(\Slim\App $app)
     })->setName('home');
 
     $app->any('/user[/{methode}]', function (Request $request, Response $response, $args) {
-        $query = $request->getQueryParams();
+        $query = $request->getQueryParams() + $request->getParsedBody();
         if ((array_key_exists('methode', $args) && $args['methode'] == 'add') || $request->isPost()) {
             if (UserQuery::create()->findOneByName($query['name'])) {
                 $this->logger->debug("Already a known user", $query);
 
-                return $response->withStatus(409);
+                return $response->withStatus(409)->withHeader('Location', '/output/error');
             }
             $user = new User();
             $user
@@ -42,16 +42,16 @@ function routes(\Slim\App $app)
             } catch (\Exception $exception) {
                 $this->logger->info($exception, $query);
 
-                return $response->withStatus(401);
+                return $response->withStatus(401)->withHeader('Location', '/output/error');
             }
             $user->save();
 
-            return $response->withStatus(201);
+            return $response->withStatus(201)->withHeader('Location', '/output/success');
         } elseif ((array_key_exists('methode', $args) && $args['methode'] == 'delete') || $request->isDelete()) {
             $user = UserQuery::create()->findOneByName($query['name']);
             if ($user) {
                 $user->delete();
-                return $response->withStatus(200);
+                return $response->withStatus(200)->withHeader('Location', '/output/success');
             }
 
             return $response->withStatus(404);
@@ -60,15 +60,16 @@ function routes(\Slim\App $app)
         return $response->withStatus(404);
     })->setName('user');
 
-    $app->group('/mission', function () {
-        $this->map(['DELETE', 'POST'], '', function (Request $request, Response $response, $args) {
-        })->setName('mission');
+    $app->group('/output', function () {
+        $this->get('/success', function (Request $request, Response $response, $args) {
 
-        $this->get('/accept', function (Request $request, Response $response, $args) {
-        })->setName('mission-accept');
+            return $this->view->render($response, 'output.phtml', ['status' => 'success']);
+        })->setName('output-success');
 
-        $this->get('/delete', function (Request $request, Response $response, $args) {
-        })->setName('mission-delete');
+        $this->get('/error', function (Request $request, Response $response, $args) {
+
+            return $this->view->render($response, 'output.phtml', ['status' => 'error']);
+        })->setName('output-error');
     });
 
     $app->get('/calendar/{user}', function (Request $request, Response $response, $args) {

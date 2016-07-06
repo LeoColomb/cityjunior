@@ -67,7 +67,8 @@ class Calendar
         $end = clone $start;
         $end->add($mission->getStart()->diff($mission->getEnd(), true));
         $event = $this->calendar->add('VEVENT', [
-            'SUMMARY' => $mission->getName(),
+            'SUMMARY' => $mission->getName().
+                            ($mission->getArrival() ? ' — '.$mission->getArrival() : ''),
             'DESCRIPTION' => 'Mission City Junior'."\n\n".
                                 '  • Type : '.$mission->getType()."\n".
                                 '  • Date : '.$mission->getDateFormatted()."\n".
@@ -93,13 +94,20 @@ class Calendar
             ]);
         $event->add('VALARM', [
             'ACTION' => 'DISPLAY',
-            'TRIGGER' => '-PT10M',
-            'DESCRIPTION' => 'Prise de poste'
+            'TRIGGER' => '-P0DT1H0M0S',
+            'DESCRIPTION' => 'Réveil'
         ]);
         $event->add('VALARM', [
             'ACTION' => 'DISPLAY',
-            'TRIGGER' => $mission->getType() == 'Astreinte' ? '-PT30M' : '-PT1H',
-            'DESCRIPTION' => 'Réveil'
+            'TRIGGER' => '-P0DT0H10M0S',
+            'DESCRIPTION' => 'Prise de poste'
         ]);
+        if ($mission->getType() !== 'Astreinte') {
+            $event->add('VALARM', [
+                'ACTION' => 'DISPLAY',
+                'TRIGGER' => 'P0DT0H20M0S',
+                'DESCRIPTION' => 'Embarquement'
+            ]);
+        }
     }
 }
