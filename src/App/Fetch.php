@@ -57,7 +57,7 @@ class Fetch
         if ($response->getStatusCode() !== 200) {
             throw new \Exception('Unable to login with anwser: '.$response->getReasonPhrase());
         }
-        if ((int) $response->getHeader('Content-Length') < 600) {
+        if ($response->getBody()->getSize() < 1000) {
             throw new \Exception('Connection refused, wrong ids');
         }
     }
