@@ -11,6 +11,16 @@ if (PHP_SAPI == 'cli-server') {
     }
 }
 
+$error_handler = new Raven_ErrorHandler(
+    new Raven_Client('https://2a603045e3ac4318987c2207e5b0bb78:32d0d90b13e543abb006a4464968d0d7@app.getsentry.com/87174', [
+        'tags' => [
+            'php_version' => phpversion(),
+        ]
+    ])
+);
+$error_handler->registerExceptionHandler();
+$error_handler->registerErrorHandler();
+
 require_once __DIR__ . '/../generated-conf/config.php';
 
 use Monolog\Logger;
