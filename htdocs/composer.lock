@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8be6cd7d1cbdb21aa165995a4512f1db",
-    "content-hash": "21af046670afa3cd4fa52b2d2d624adb",
+    "hash": "7e81b41c8ffc202721d49bdda50a99b9",
+    "content-hash": "e7557afeca6d321d9c25fd40237097b9",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -378,12 +378,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/propelorm/Propel2.git",
-                "reference": "d0d24d540a51d42fde8cb70244c4e8ae37b56358"
+                "reference": "53ff0849d6b37cd393844a634ba99cfbff040f6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/propelorm/Propel2/zipball/d0d24d540a51d42fde8cb70244c4e8ae37b56358",
-                "reference": "d0d24d540a51d42fde8cb70244c4e8ae37b56358",
+                "url": "https://api.github.com/repos/propelorm/Propel2/zipball/53ff0849d6b37cd393844a634ba99cfbff040f6e",
+                "reference": "53ff0849d6b37cd393844a634ba99cfbff040f6e",
                 "shasum": ""
             },
             "require": {
@@ -435,7 +435,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2016-06-14 13:17:25"
+            "time": "2016-07-07 13:53:09"
         },
         {
             "name": "psr/http-message",
@@ -577,16 +577,16 @@
         },
         {
             "name": "sabre/vobject",
-            "version": "4.1.0",
+            "version": "4.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fruux/sabre-vobject.git",
-                "reference": "8899c0e856b3178b17f4e9a4e85010209f32a2fa"
+                "reference": "a3a59b06947f122af2d45d52b72172cdc1efd68f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fruux/sabre-vobject/zipball/8899c0e856b3178b17f4e9a4e85010209f32a2fa",
-                "reference": "8899c0e856b3178b17f4e9a4e85010209f32a2fa",
+                "url": "https://api.github.com/repos/fruux/sabre-vobject/zipball/a3a59b06947f122af2d45d52b72172cdc1efd68f",
+                "reference": "a3a59b06947f122af2d45d52b72172cdc1efd68f",
                 "shasum": ""
             },
             "require": {
@@ -646,6 +646,7 @@
                 "availability",
                 "freebusy",
                 "iCalendar",
+                "ical",
                 "ics",
                 "jCal",
                 "jCard",
@@ -663,12 +664,13 @@
                 "rfc6638",
                 "rfc6715",
                 "rfc6868",
+                "vCalendar",
                 "vCard",
                 "vcf",
                 "xCal",
                 "xCard"
             ],
-            "time": "2016-04-07 00:48:27"
+            "time": "2016-07-15 19:52:17"
         },
         {
             "name": "sabre/xml",
@@ -732,6 +734,64 @@
                 "xml"
             ],
             "time": "2016-05-19 21:56:49"
+        },
+        {
+            "name": "sentry/sentry",
+            "version": "0.22.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/getsentry/sentry-php.git",
+                "reference": "49d4c0c4f2c298c9f15a07416debb5352a209b79"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/49d4c0c4f2c298c9f15a07416debb5352a209b79",
+                "reference": "49d4c0c4f2c298c9f15a07416debb5352a209b79",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "monolog/monolog": "*",
+                "php": ">=5.2.4"
+            },
+            "conflict": {
+                "raven/raven": "*"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^1.8.0",
+                "phpunit/phpunit": "^4.6.6"
+            },
+            "bin": [
+                "bin/sentry"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.22.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Raven_": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "David Cramer",
+                    "email": "dcramer@gmail.com"
+                }
+            ],
+            "description": "A PHP client for Sentry (http://getsentry.com)",
+            "homepage": "http://getsentry.com",
+            "keywords": [
+                "log",
+                "logging"
+            ],
+            "time": "2016-06-23 19:41:24"
         },
         {
             "name": "slim/slim",

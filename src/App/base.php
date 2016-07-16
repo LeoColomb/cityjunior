@@ -48,9 +48,9 @@ function base()
                 ->save();
 
             if (!$mission->getConfirmed()) {
-                $notifiers = ['Notification\MailNotification'];
+                $notifiers = ['App\\Notification\\MailNotification'];
                 if ($user->getName() == 'CL407678') {
-                	$notifiers += ['Notification\SMSNotification'];
+                	$notifiers += ['App\\Notification\\SMSNotification'];
                 }
                 foreach ($notifiers as $notifier) {
                     $log->info('Preparing a new notification', [

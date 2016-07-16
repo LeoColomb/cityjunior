@@ -8,7 +8,8 @@
         "slim/slim": "^3.4",
         "slim/twig-view": "^2.1",
         "monolog/monolog": "^1.19",
-        "sabre/vobject": "~4.1"
+        "sabre/vobject": "~4.1",
+        "sentry/sentry": "^0.22.0"
     },
     "autoload": {
         "psr-4": {
