@@ -2,9 +2,7 @@
 
 namespace App;
 
-use App\Notification\MailNotification;
-use App\Notification\SMSNotification;
-use App\Notification\NotificationException;
+use Notification\NotificationException;
 use Data\MissionQuery;
 use Data\UserQuery;
 
@@ -50,9 +48,9 @@ function base()
                 ->save();
 
             if (!$mission->getConfirmed()) {
-                $notifiers = ['MailNotification'];
+                $notifiers = ['Notification\MailNotification'];
                 if ($user->getName() == 'CL407678') {
-                	$notifiers += ['SMSNotification'];
+                	$notifiers += ['Notification\SMSNotification'];
                 }
                 foreach ($notifiers as $notifier) {
                     $log->info('Preparing a new notification', [
