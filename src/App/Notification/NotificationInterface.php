@@ -40,7 +40,7 @@ interface NotificationInterface
      *
      * @see $hasAttachmentAbility
      */
-    public function attach(string $raw);
+    public function attach($raw);
 
     /**
      * The notification sender to the user.
