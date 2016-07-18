@@ -61,7 +61,7 @@ class MailNotification implements NotificationInterface
         );
     }
 
-    public function attach(string $raw)
+    public function attach($raw)
     {
         $this->body .= '--PHP-alt-'.$this->hash.'--'."\r\n";
         $this->add('mixed', [
