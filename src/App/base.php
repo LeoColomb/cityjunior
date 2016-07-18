@@ -49,7 +49,7 @@ function base()
 
             if (!$mission->getConfirmed()) {
                 $notifiers = ['App\\Notification\\MailNotification'];
-                if ($user->getName() == 'CL407678') {
+                if ($user->getID() == 1) {
                 	$notifiers += ['App\\Notification\\SMSNotification'];
                 }
                 foreach ($notifiers as $notifier) {
@@ -64,6 +64,11 @@ function base()
                     }
 
                     $notif->send();
+                    $log->debug('Notification sent', [
+                        'user' => $user->getName(),
+                        'mission' => $mission->getID(),
+                        'notifier' => $notifier
+                    ]);
                 }
             } else {
                 $log->debug('Mission already confirmed', [
