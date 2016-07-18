@@ -6,6 +6,7 @@ vendor/
 propel.yml
 generated-conf/
 logs/
+.mail/
 
 # Sass
 .sass-cache
