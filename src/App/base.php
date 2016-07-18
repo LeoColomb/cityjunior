@@ -50,7 +50,7 @@ function base()
             if (!$mission->getConfirmed()) {
                 $notifiers = ['App\\Notification\\MailNotification'];
                 if ($user->getID() == 1) {
-                	$notifiers += ['App\\Notification\\SMSNotification'];
+                    array_push($notifiers, 'App\\Notification\\SMSNotification');
                 }
                 foreach ($notifiers as $notifier) {
                     $log->info('Preparing a new notification', [
