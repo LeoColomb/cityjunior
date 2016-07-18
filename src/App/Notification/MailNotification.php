@@ -26,7 +26,7 @@ class MailNotification implements NotificationInterface
         $this->hash = md5(date('r', time()));
 
         $this->subject .= $mission->getName();
-        $this->subject .= ' le '.$mission->getDateFromatted();
+        $this->subject .= ' le '.$mission->getDateFormatted();
 
         $this->add('mixed', [
             'Type' => 'multipart/alternative; boundary="PHP-alt-'.$this->hash.'"',
