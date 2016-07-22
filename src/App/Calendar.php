@@ -75,12 +75,16 @@ class Calendar
                                 '  • Départ : '.$mission->getName()."\n".
                                 '  • Début : '.$mission->getStartFormatted()."\n".
                                 '  • Fin : '.$mission->getEndFormatted()."\n".
-                                '  • Arrivée : '.$mission->getArrival()."\n",
+                                ($mission->getTrain() ?
+                                    '  • Arrivée : '.$mission->getArrival()."\n".
+                                    '  • Train : '.$mission->getTrain()."\n\n".
+                                    'Info trafic : http://www.sncf.com/sncf/train?numeroTrain='.$mission->getTrain().'&date='.$mission->getDateFormatted()
+                                : ''),
             'CATEGORIES' => $mission->getType(),
             'STATUS' => 'CONFIRMED',
             'DTSTART' => $start,
             'DTEND' => $end,
-            'LOCATION' => $mission->getName()
+            'LOCATION' => 'Gare de '.$mission->getName()
         ]);
         $event->add('ATTENDEE',
             'mailto:'.$this->user->getMail(),

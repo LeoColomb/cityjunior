@@ -9,6 +9,7 @@
     <column name="arrival" phpName="Arrival" type="VARCHAR" size="250"/>
     <column name="end" phpName="End" type="TIME" required="true"/>
     <column name="code" phpName="Code" type="FLOAT"/>
+    <column name="train" phpName="Train" type="INTEGER"/>
     <column name="confirmed" phpName="Confirmed" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
     <column name="user_id" phpName="UserId" type="INTEGER" required="true" defaultValue="0"/>
     <foreign-key foreignTable="cj__users" name="FK__cj__users">

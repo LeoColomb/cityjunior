@@ -28,6 +28,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildMissionQuery orderByArrival($order = Criteria::ASC) Order by the arrival column
  * @method     ChildMissionQuery orderByEnd($order = Criteria::ASC) Order by the end column
  * @method     ChildMissionQuery orderByCode($order = Criteria::ASC) Order by the code column
+ * @method     ChildMissionQuery orderByTrain($order = Criteria::ASC) Order by the train column
  * @method     ChildMissionQuery orderByConfirmed($order = Criteria::ASC) Order by the confirmed column
  * @method     ChildMissionQuery orderByUserId($order = Criteria::ASC) Order by the user_id column
  *
@@ -39,6 +40,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildMissionQuery groupByArrival() Group by the arrival column
  * @method     ChildMissionQuery groupByEnd() Group by the end column
  * @method     ChildMissionQuery groupByCode() Group by the code column
+ * @method     ChildMissionQuery groupByTrain() Group by the train column
  * @method     ChildMissionQuery groupByConfirmed() Group by the confirmed column
  * @method     ChildMissionQuery groupByUserId() Group by the user_id column
  *
@@ -73,6 +75,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildMission findOneByArrival(string $arrival) Return the first ChildMission filtered by the arrival column
  * @method     ChildMission findOneByEnd(string $end) Return the first ChildMission filtered by the end column
  * @method     ChildMission findOneByCode(double $code) Return the first ChildMission filtered by the code column
+ * @method     ChildMission findOneByTrain(int $train) Return the first ChildMission filtered by the train column
  * @method     ChildMission findOneByConfirmed(boolean $confirmed) Return the first ChildMission filtered by the confirmed column
  * @method     ChildMission findOneByUserId(int $user_id) Return the first ChildMission filtered by the user_id column *
 
@@ -87,6 +90,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildMission requireOneByArrival(string $arrival) Return the first ChildMission filtered by the arrival column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildMission requireOneByEnd(string $end) Return the first ChildMission filtered by the end column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildMission requireOneByCode(double $code) Return the first ChildMission filtered by the code column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildMission requireOneByTrain(int $train) Return the first ChildMission filtered by the train column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildMission requireOneByConfirmed(boolean $confirmed) Return the first ChildMission filtered by the confirmed column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildMission requireOneByUserId(int $user_id) Return the first ChildMission filtered by the user_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
@@ -99,6 +103,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildMission[]|ObjectCollection findByArrival(string $arrival) Return ChildMission objects filtered by the arrival column
  * @method     ChildMission[]|ObjectCollection findByEnd(string $end) Return ChildMission objects filtered by the end column
  * @method     ChildMission[]|ObjectCollection findByCode(double $code) Return ChildMission objects filtered by the code column
+ * @method     ChildMission[]|ObjectCollection findByTrain(int $train) Return ChildMission objects filtered by the train column
  * @method     ChildMission[]|ObjectCollection findByConfirmed(boolean $confirmed) Return ChildMission objects filtered by the confirmed column
  * @method     ChildMission[]|ObjectCollection findByUserId(int $user_id) Return ChildMission objects filtered by the user_id column
  * @method     ChildMission[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
@@ -199,7 +204,7 @@ abstract class MissionQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT ID, type, date, name, start, arrival, end, code, confirmed, user_id FROM cj__missions WHERE ID = :p0';
+        $sql = 'SELECT ID, type, date, name, start, arrival, end, code, train, confirmed, user_id FROM cj__missions WHERE ID = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_STR);
@@ -561,6 +566,47 @@ abstract class MissionQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(MissionTableMap::COL_CODE, $code, $comparison);
+    }
+
+    /**
+     * Filter the query on the train column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByTrain(1234); // WHERE train = 1234
+     * $query->filterByTrain(array(12, 34)); // WHERE train IN (12, 34)
+     * $query->filterByTrain(array('min' => 12)); // WHERE train > 12
+     * </code>
+     *
+     * @param     mixed $train The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildMissionQuery The current query, for fluid interface
+     */
+    public function filterByTrain($train = null, $comparison = null)
+    {
+        if (is_array($train)) {
+            $useMinMax = false;
+            if (isset($train['min'])) {
+                $this->addUsingAlias(MissionTableMap::COL_TRAIN, $train['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($train['max'])) {
+                $this->addUsingAlias(MissionTableMap::COL_TRAIN, $train['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(MissionTableMap::COL_TRAIN, $train, $comparison);
     }
 
     /**

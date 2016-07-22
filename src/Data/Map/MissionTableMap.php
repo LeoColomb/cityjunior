@@ -59,7 +59,7 @@ class MissionTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 10;
+    const NUM_COLUMNS = 11;
 
     /**
      * The number of lazy-loaded columns
@@ -69,7 +69,7 @@ class MissionTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 10;
+    const NUM_HYDRATE_COLUMNS = 11;
 
     /**
      * the column name for the ID field
@@ -112,6 +112,11 @@ class MissionTableMap extends TableMap
     const COL_CODE = 'cj__missions.code';
 
     /**
+     * the column name for the train field
+     */
+    const COL_TRAIN = 'cj__missions.train';
+
+    /**
      * the column name for the confirmed field
      */
     const COL_CONFIRMED = 'cj__missions.confirmed';
@@ -133,11 +138,11 @@ class MissionTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Type', 'Date', 'Name', 'Start', 'Arrival', 'End', 'Code', 'Confirmed', 'UserId', ),
-        self::TYPE_CAMELNAME     => array('id', 'type', 'date', 'name', 'start', 'arrival', 'end', 'code', 'confirmed', 'userId', ),
-        self::TYPE_COLNAME       => array(MissionTableMap::COL_ID, MissionTableMap::COL_TYPE, MissionTableMap::COL_DATE, MissionTableMap::COL_NAME, MissionTableMap::COL_START, MissionTableMap::COL_ARRIVAL, MissionTableMap::COL_END, MissionTableMap::COL_CODE, MissionTableMap::COL_CONFIRMED, MissionTableMap::COL_USER_ID, ),
-        self::TYPE_FIELDNAME     => array('ID', 'type', 'date', 'name', 'start', 'arrival', 'end', 'code', 'confirmed', 'user_id', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
+        self::TYPE_PHPNAME       => array('Id', 'Type', 'Date', 'Name', 'Start', 'Arrival', 'End', 'Code', 'Train', 'Confirmed', 'UserId', ),
+        self::TYPE_CAMELNAME     => array('id', 'type', 'date', 'name', 'start', 'arrival', 'end', 'code', 'train', 'confirmed', 'userId', ),
+        self::TYPE_COLNAME       => array(MissionTableMap::COL_ID, MissionTableMap::COL_TYPE, MissionTableMap::COL_DATE, MissionTableMap::COL_NAME, MissionTableMap::COL_START, MissionTableMap::COL_ARRIVAL, MissionTableMap::COL_END, MissionTableMap::COL_CODE, MissionTableMap::COL_TRAIN, MissionTableMap::COL_CONFIRMED, MissionTableMap::COL_USER_ID, ),
+        self::TYPE_FIELDNAME     => array('ID', 'type', 'date', 'name', 'start', 'arrival', 'end', 'code', 'train', 'confirmed', 'user_id', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, )
     );
 
     /**
@@ -147,11 +152,11 @@ class MissionTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Type' => 1, 'Date' => 2, 'Name' => 3, 'Start' => 4, 'Arrival' => 5, 'End' => 6, 'Code' => 7, 'Confirmed' => 8, 'UserId' => 9, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'type' => 1, 'date' => 2, 'name' => 3, 'start' => 4, 'arrival' => 5, 'end' => 6, 'code' => 7, 'confirmed' => 8, 'userId' => 9, ),
-        self::TYPE_COLNAME       => array(MissionTableMap::COL_ID => 0, MissionTableMap::COL_TYPE => 1, MissionTableMap::COL_DATE => 2, MissionTableMap::COL_NAME => 3, MissionTableMap::COL_START => 4, MissionTableMap::COL_ARRIVAL => 5, MissionTableMap::COL_END => 6, MissionTableMap::COL_CODE => 7, MissionTableMap::COL_CONFIRMED => 8, MissionTableMap::COL_USER_ID => 9, ),
-        self::TYPE_FIELDNAME     => array('ID' => 0, 'type' => 1, 'date' => 2, 'name' => 3, 'start' => 4, 'arrival' => 5, 'end' => 6, 'code' => 7, 'confirmed' => 8, 'user_id' => 9, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Type' => 1, 'Date' => 2, 'Name' => 3, 'Start' => 4, 'Arrival' => 5, 'End' => 6, 'Code' => 7, 'Train' => 8, 'Confirmed' => 9, 'UserId' => 10, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'type' => 1, 'date' => 2, 'name' => 3, 'start' => 4, 'arrival' => 5, 'end' => 6, 'code' => 7, 'train' => 8, 'confirmed' => 9, 'userId' => 10, ),
+        self::TYPE_COLNAME       => array(MissionTableMap::COL_ID => 0, MissionTableMap::COL_TYPE => 1, MissionTableMap::COL_DATE => 2, MissionTableMap::COL_NAME => 3, MissionTableMap::COL_START => 4, MissionTableMap::COL_ARRIVAL => 5, MissionTableMap::COL_END => 6, MissionTableMap::COL_CODE => 7, MissionTableMap::COL_TRAIN => 8, MissionTableMap::COL_CONFIRMED => 9, MissionTableMap::COL_USER_ID => 10, ),
+        self::TYPE_FIELDNAME     => array('ID' => 0, 'type' => 1, 'date' => 2, 'name' => 3, 'start' => 4, 'arrival' => 5, 'end' => 6, 'code' => 7, 'train' => 8, 'confirmed' => 9, 'user_id' => 10, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, )
     );
 
     /**
@@ -179,6 +184,7 @@ class MissionTableMap extends TableMap
         $this->addColumn('arrival', 'Arrival', 'VARCHAR', false, 250, null);
         $this->addColumn('end', 'End', 'TIME', true, null, null);
         $this->addColumn('code', 'Code', 'FLOAT', false, null, null);
+        $this->addColumn('train', 'Train', 'INTEGER', false, null, null);
         $this->addColumn('confirmed', 'Confirmed', 'BOOLEAN', true, 1, false);
         $this->addForeignKey('user_id', 'UserId', 'INTEGER', 'cj__users', 'ID', true, null, 0);
     } // initialize()
@@ -346,6 +352,7 @@ class MissionTableMap extends TableMap
             $criteria->addSelectColumn(MissionTableMap::COL_ARRIVAL);
             $criteria->addSelectColumn(MissionTableMap::COL_END);
             $criteria->addSelectColumn(MissionTableMap::COL_CODE);
+            $criteria->addSelectColumn(MissionTableMap::COL_TRAIN);
             $criteria->addSelectColumn(MissionTableMap::COL_CONFIRMED);
             $criteria->addSelectColumn(MissionTableMap::COL_USER_ID);
         } else {
@@ -357,6 +364,7 @@ class MissionTableMap extends TableMap
             $criteria->addSelectColumn($alias . '.arrival');
             $criteria->addSelectColumn($alias . '.end');
             $criteria->addSelectColumn($alias . '.code');
+            $criteria->addSelectColumn($alias . '.train');
             $criteria->addSelectColumn($alias . '.confirmed');
             $criteria->addSelectColumn($alias . '.user_id');
         }

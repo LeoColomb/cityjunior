@@ -120,6 +120,13 @@ abstract class Mission implements ActiveRecordInterface
     protected $code;
 
     /**
+     * The value for the train field.
+     *
+     * @var        int
+     */
+    protected $train;
+
+    /**
      * The value for the confirmed field.
      *
      * Note: this column has a database default value of: false
@@ -498,6 +505,16 @@ abstract class Mission implements ActiveRecordInterface
     }
 
     /**
+     * Get the [train] column value.
+     *
+     * @return int
+     */
+    public function getTrain()
+    {
+        return $this->train;
+    }
+
+    /**
      * Get the [confirmed] column value.
      *
      * @return boolean
@@ -688,6 +705,26 @@ abstract class Mission implements ActiveRecordInterface
     } // setCode()
 
     /**
+     * Set the value of [train] column.
+     *
+     * @param int $v new value
+     * @return $this|\Data\Mission The current object (for fluent API support)
+     */
+    public function setTrain($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->train !== $v) {
+            $this->train = $v;
+            $this->modifiedColumns[MissionTableMap::COL_TRAIN] = true;
+        }
+
+        return $this;
+    } // setTrain()
+
+    /**
      * Sets the value of the [confirmed] column.
      * Non-boolean arguments are converted using the following rules:
      *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
@@ -810,10 +847,13 @@ abstract class Mission implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : MissionTableMap::translateFieldName('Code', TableMap::TYPE_PHPNAME, $indexType)];
             $this->code = (null !== $col) ? (double) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : MissionTableMap::translateFieldName('Confirmed', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : MissionTableMap::translateFieldName('Train', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->train = (null !== $col) ? (int) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : MissionTableMap::translateFieldName('Confirmed', TableMap::TYPE_PHPNAME, $indexType)];
             $this->confirmed = (null !== $col) ? (boolean) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : MissionTableMap::translateFieldName('UserId', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 10 + $startcol : MissionTableMap::translateFieldName('UserId', TableMap::TYPE_PHPNAME, $indexType)];
             $this->user_id = (null !== $col) ? (int) $col : null;
             $this->resetModified();
 
@@ -823,7 +863,7 @@ abstract class Mission implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 10; // 10 = MissionTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 11; // 11 = MissionTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Data\\Mission'), 0, $e);
@@ -1056,6 +1096,9 @@ abstract class Mission implements ActiveRecordInterface
         if ($this->isColumnModified(MissionTableMap::COL_CODE)) {
             $modifiedColumns[':p' . $index++]  = 'code';
         }
+        if ($this->isColumnModified(MissionTableMap::COL_TRAIN)) {
+            $modifiedColumns[':p' . $index++]  = 'train';
+        }
         if ($this->isColumnModified(MissionTableMap::COL_CONFIRMED)) {
             $modifiedColumns[':p' . $index++]  = 'confirmed';
         }
@@ -1096,6 +1139,9 @@ abstract class Mission implements ActiveRecordInterface
                         break;
                     case 'code':
                         $stmt->bindValue($identifier, $this->code, PDO::PARAM_STR);
+                        break;
+                    case 'train':
+                        $stmt->bindValue($identifier, $this->train, PDO::PARAM_INT);
                         break;
                     case 'confirmed':
                         $stmt->bindValue($identifier, (int) $this->confirmed, PDO::PARAM_INT);
@@ -1183,9 +1229,12 @@ abstract class Mission implements ActiveRecordInterface
                 return $this->getCode();
                 break;
             case 8:
-                return $this->getConfirmed();
+                return $this->getTrain();
                 break;
             case 9:
+                return $this->getConfirmed();
+                break;
+            case 10:
                 return $this->getUserId();
                 break;
             default:
@@ -1226,8 +1275,9 @@ abstract class Mission implements ActiveRecordInterface
             $keys[5] => $this->getArrival(),
             $keys[6] => $this->getEnd(),
             $keys[7] => $this->getCode(),
-            $keys[8] => $this->getConfirmed(),
-            $keys[9] => $this->getUserId(),
+            $keys[8] => $this->getTrain(),
+            $keys[9] => $this->getConfirmed(),
+            $keys[10] => $this->getUserId(),
         );
         if ($result[$keys[2]] instanceof \DateTime) {
             $result[$keys[2]] = $result[$keys[2]]->format('c');
@@ -1321,9 +1371,12 @@ abstract class Mission implements ActiveRecordInterface
                 $this->setCode($value);
                 break;
             case 8:
-                $this->setConfirmed($value);
+                $this->setTrain($value);
                 break;
             case 9:
+                $this->setConfirmed($value);
+                break;
+            case 10:
                 $this->setUserId($value);
                 break;
         } // switch()
@@ -1377,10 +1430,13 @@ abstract class Mission implements ActiveRecordInterface
             $this->setCode($arr[$keys[7]]);
         }
         if (array_key_exists($keys[8], $arr)) {
-            $this->setConfirmed($arr[$keys[8]]);
+            $this->setTrain($arr[$keys[8]]);
         }
         if (array_key_exists($keys[9], $arr)) {
-            $this->setUserId($arr[$keys[9]]);
+            $this->setConfirmed($arr[$keys[9]]);
+        }
+        if (array_key_exists($keys[10], $arr)) {
+            $this->setUserId($arr[$keys[10]]);
         }
     }
 
@@ -1446,6 +1502,9 @@ abstract class Mission implements ActiveRecordInterface
         }
         if ($this->isColumnModified(MissionTableMap::COL_CODE)) {
             $criteria->add(MissionTableMap::COL_CODE, $this->code);
+        }
+        if ($this->isColumnModified(MissionTableMap::COL_TRAIN)) {
+            $criteria->add(MissionTableMap::COL_TRAIN, $this->train);
         }
         if ($this->isColumnModified(MissionTableMap::COL_CONFIRMED)) {
             $criteria->add(MissionTableMap::COL_CONFIRMED, $this->confirmed);
@@ -1547,6 +1606,7 @@ abstract class Mission implements ActiveRecordInterface
         $copyObj->setArrival($this->getArrival());
         $copyObj->setEnd($this->getEnd());
         $copyObj->setCode($this->getCode());
+        $copyObj->setTrain($this->getTrain());
         $copyObj->setConfirmed($this->getConfirmed());
         $copyObj->setUserId($this->getUserId());
         if ($makeNew) {
@@ -1645,6 +1705,7 @@ abstract class Mission implements ActiveRecordInterface
         $this->arrival = null;
         $this->end = null;
         $this->code = null;
+        $this->train = null;
         $this->confirmed = null;
         $this->user_id = null;
         $this->alreadyInSave = false;

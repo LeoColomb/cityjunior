@@ -35,14 +35,16 @@ function base()
                 'user' => $user->getName(),
                 'mission' => $mission->getID()
             ]);
+            $missionRawTrain = array_reverse(explode(' - ', $missionRaw["D\xC3\xA9part/Gare"]));
             $mission
                 ->setType($missionRaw['Type'])
                 ->setDate(\DateTime::createFromFormat('d/m/Y', $missionRaw['Date']))
-                ->setName($missionRaw["D\xC3\xA9part/Gare"])
+                ->setName($missionRawTrain[0])
                 ->setStart($missionRaw['Debut'])
                 ->setArrival($missionRaw["Arriv\xC3\xA9e"] == "\xC2\xA0" ? null : $missionRaw["Arriv\xC3\xA9e"])
                 ->setEnd($missionRaw['Fin'])
                 ->setCode($missionRaw['Code'] == "\xC2\xA0" ? null : $missionRaw['Code'])
+                ->setTrain(count($missionRawTrain) === 2 ? $missionRawTrain[1] : null)
                 ->setConfirmed(strpos($missionRaw['Confirmee'], ' non ') == false)
                 ->setUserId($user->getId())
                 ->save();
