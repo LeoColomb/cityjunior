@@ -70,10 +70,11 @@ class Fetch
         $missions = $this->doFetch();
         $now = new \DateTime();
         if ((int) $now->format('n') < (int) $now->add(new \DateInterval('P10D'))->format('n')) {
-            $missions += $this->doFetch([
+            $missions = array_merge($missions, $this->doFetch([
                         'semaine' => $now->format('Y-n').'-1',
                         'mois' => $now->add(new \DateInterval('P10D'))->format('Y-n').'-1'
-                    ]);
+                    ])
+            );
         }
 
         return $missions;
