@@ -80,6 +80,11 @@ class Fetch
         return $missions;
     }
 
+    /**
+     * [doFetch description]
+     * @param  array  $params [description]
+     * @return array
+     */
     private function doFetch(array $params = [])
     {
         $response = $this->client->post('planet.php', [
@@ -99,15 +104,15 @@ class Fetch
         $rows = $rows->getElementsByTagName('tr');
         // Keys
         $keysNode = $rows->item(1)->getElementsByTagName('th');
-        $keys = null;
+        $keys = [];
         foreach ($keysNode as $node) {
             $keys[] = $node->nodeValue == "\xC2\xA0" ? 'Confirmee' : $node->nodeValue;
         }
 
         // Missions
-        $missions = null;
+        $missions = [];
         for ($i = 2; $i < $rows->length; ++$i) {
-            $missions[] = null;
+            $missions[] = [];
             $missions[$i - 2]['ID'] = $rows
                 ->item($i)
                 ->getElementsByTagName('input')
