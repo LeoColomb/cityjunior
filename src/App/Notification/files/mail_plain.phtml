@@ -9,4 +9,7 @@ Détails de la mission :
 	Fin : <?= $mission->getEndFormatted(); ?>.
 <?php if ($mission->getArrival()) : ?>
 	Arrivée : <?= $mission->getArrival(); ?>.
+	Train : <?= $mission->getTrain(); ?>.
+
+Suivi Info trafic : http://www.sncf.com/sncf/train?numeroTrain=<?= $mission->getTrain(); ?>&date=<?= $mission->getDateFormatted(); ?>.
 <?php endif; ?>
