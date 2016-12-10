@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "014462b2c17582d6304e8a81f174c5e4",
-    "content-hash": "22060f539ffe374a02ad11ba41a1a52b",
+    "hash": "d56f06187d9cb672b4f8f2528bc61584",
+    "content-hash": "7a3b3dc80e99f1a76b42c7b1528c109f",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -807,21 +807,20 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "0.22.0",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "49d4c0c4f2c298c9f15a07416debb5352a209b79"
+                "reference": "8bb36c8b918e63a08a2b13f31568808f1a7e6c20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/49d4c0c4f2c298c9f15a07416debb5352a209b79",
-                "reference": "49d4c0c4f2c298c9f15a07416debb5352a209b79",
+                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/8bb36c8b918e63a08a2b13f31568808f1a7e6c20",
+                "reference": "8bb36c8b918e63a08a2b13f31568808f1a7e6c20",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
-                "monolog/monolog": "*",
                 "php": ">=5.2.4"
             },
             "conflict": {
@@ -829,7 +828,11 @@
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^1.8.0",
-                "phpunit/phpunit": "^4.6.6"
+                "monolog/monolog": "*",
+                "phpunit/phpunit": "^4.8 || ^5.0"
+            },
+            "suggest": {
+                "monolog/monolog": "Automatically capture Monolog events as breadcrumbs"
             },
             "bin": [
                 "bin/sentry"
@@ -837,7 +840,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.22.x-dev"
+                    "dev-master": "1.6.x-dev"
                 }
             },
             "autoload": {
@@ -861,7 +864,7 @@
                 "log",
                 "logging"
             ],
-            "time": "2016-06-23 19:41:24"
+            "time": "2016-12-09 03:40:24"
         },
         {
             "name": "slim/slim",
