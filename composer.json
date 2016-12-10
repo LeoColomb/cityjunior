@@ -9,7 +9,8 @@
         "slim/twig-view": "^2.1",
         "monolog/monolog": "^1.19",
         "sabre/vobject": "~4.1",
-        "sentry/sentry": "^0.22.0"
+        "sentry/sentry": "^0.22.0",
+        "phpmailer/phpmailer": "v5.2.17"
     },
     "autoload": {
         "psr-4": {

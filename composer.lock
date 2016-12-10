@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7e81b41c8ffc202721d49bdda50a99b9",
-    "content-hash": "e7557afeca6d321d9c25fd40237097b9",
+    "hash": "014462b2c17582d6304e8a81f174c5e4",
+    "content-hash": "22060f539ffe374a02ad11ba41a1a52b",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -327,6 +327,66 @@
             "time": "2016-06-12 19:08:51"
         },
         {
+            "name": "phpmailer/phpmailer",
+            "version": "v5.2.17",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPMailer/PHPMailer.git",
+                "reference": "208913c6042967ba404f4bfa0819bf5bef79dbec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/208913c6042967ba404f4bfa0819bf5bef79dbec",
+                "reference": "208913c6042967ba404f4bfa0819bf5bef79dbec",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.0.0"
+            },
+            "require-dev": {
+                "phpdocumentor/phpdocumentor": "*",
+                "phpunit/phpunit": "4.7.*"
+            },
+            "suggest": {
+                "league/oauth2-google": "Needed for Google XOAUTH2 authentication"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "class.phpmailer.php",
+                    "class.phpmaileroauth.php",
+                    "class.phpmaileroauthgoogle.php",
+                    "class.smtp.php",
+                    "class.pop3.php",
+                    "extras/EasyPeasyICS.php",
+                    "extras/ntlm_sasl_client.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1"
+            ],
+            "authors": [
+                {
+                    "name": "Jim Jagielski",
+                    "email": "jimjag@gmail.com"
+                },
+                {
+                    "name": "Marcus Bointon",
+                    "email": "phpmailer@synchromedia.co.uk"
+                },
+                {
+                    "name": "Andy Prevost",
+                    "email": "codeworxtech@users.sourceforge.net"
+                },
+                {
+                    "name": "Brent R. Matzelle"
+                }
+            ],
+            "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
+            "time": "2016-12-09 10:03:48"
+        },
+        {
             "name": "pimple/pimple",
             "version": "v3.0.2",
             "source": {
@@ -378,12 +438,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/propelorm/Propel2.git",
-                "reference": "53ff0849d6b37cd393844a634ba99cfbff040f6e"
+                "reference": "21c75aa6d7da88b586099d5beee99a565d9fa899"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/propelorm/Propel2/zipball/53ff0849d6b37cd393844a634ba99cfbff040f6e",
-                "reference": "53ff0849d6b37cd393844a634ba99cfbff040f6e",
+                "url": "https://api.github.com/repos/propelorm/Propel2/zipball/21c75aa6d7da88b586099d5beee99a565d9fa899",
+                "reference": "21c75aa6d7da88b586099d5beee99a565d9fa899",
                 "shasum": ""
             },
             "require": {
@@ -435,7 +495,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2016-07-07 13:53:09"
+            "time": "2016-12-05 11:14:10"
         },
         {
             "name": "psr/http-message",

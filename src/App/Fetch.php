@@ -30,6 +30,7 @@ class Fetch
      * Login.
      *
      * @param \Data\User $user
+     * @throws \Exception
      */
     public function __construct(User $user)
     {
@@ -82,8 +83,10 @@ class Fetch
 
     /**
      * [doFetch description]
-     * @param  array  $params [description]
+     *
+     * @param  array $params [description]
      * @return array
+     * @throws \Exception
      */
     private function doFetch(array $params = [])
     {
