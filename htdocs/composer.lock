@@ -596,20 +596,20 @@
         },
         {
             "name": "sabre/uri",
-            "version": "2.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fruux/sabre-uri.git",
-                "reference": "962b4b4b42738e80c0824db26197b56f60c3ca50"
+                "reference": "8545a3335f741d4b7700bb14efb41b4c03775dcd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fruux/sabre-uri/zipball/962b4b4b42738e80c0824db26197b56f60c3ca50",
-                "reference": "962b4b4b42738e80c0824db26197b56f60c3ca50",
+                "url": "https://api.github.com/repos/fruux/sabre-uri/zipball/8545a3335f741d4b7700bb14efb41b4c03775dcd",
+                "reference": "8545a3335f741d4b7700bb14efb41b4c03775dcd",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7"
+                "php": ">=5.4.7"
             },
             "require-dev": {
                 "phpunit/phpunit": "*",
