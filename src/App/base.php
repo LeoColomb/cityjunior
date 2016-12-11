@@ -46,8 +46,7 @@ function base()
                 ->setCode($missionRaw['Code'] == "\xC2\xA0" ? null : $missionRaw['Code'])
                 ->setTrain(count($missionRawTrain) === 2 ? $missionRawTrain[1] : null)
                 ->setConfirmed(strpos($missionRaw['Confirmee'], ' non ') == false)
-                ->setUserId($user->getId())
-                ->save();
+                ->setUserId($user->getId());
 
             if (!$mission->getConfirmed()) {
                 $notifiers = ['App\\Notification\\MailNotification'];
@@ -79,6 +78,7 @@ function base()
                 ]);
             }
 
+            $mission->save();
         }
     }
 }
