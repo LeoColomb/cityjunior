@@ -13,12 +13,6 @@ class MailNotification extends \PHPMailer implements NotificationInterface
     {
         parent::__construct();
 
-        $this->isSMTP();
-        $this->Host = 'localhost';
-        $this->SMTPAuth = false;
-        $this->SMTPSecure = false;
-        $this->Port = 25;
-
         $this->setLanguage('fr');
         $this->isHTML(true);
         $this->setFrom('noreply@cityjunior.clmb.fr', 'City Junior App');
