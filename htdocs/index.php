@@ -14,7 +14,8 @@ if (PHP_SAPI == 'cli-server') {
 (new Raven_Client('https://2a603045e3ac4318987c2207e5b0bb78:32d0d90b13e543abb006a4464968d0d7@sentry.io/87174', [
     'tags' => [
         'php_version' => phpversion(),
-    ]
+    ],
+    'version' => "2.0.1"
 ]))->install();
 // $error_handler->registerExceptionHandler();
 // $error_handler->registerErrorHandler(true, [
