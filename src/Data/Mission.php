@@ -30,4 +30,9 @@ class Mission extends BaseMission
     {
         return $this->getDate()->format('d/m/Y');
     }
+    
+    public function getLink()
+    {
+        return 'http://www.sncf.com/fr/train?numeroTrain='.$this->getTrain().'&date='.$this->getDateFormatted();
+    }
 }
