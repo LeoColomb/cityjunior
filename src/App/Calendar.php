@@ -78,7 +78,7 @@ class Calendar
                                 ($mission->getTrain() ?
                                     '  • Arrivée : '.$mission->getArrival()."\n".
                                     '  • Train : '.$mission->getTrain()."\n\n".
-                                    'Info trafic : http://www.sncf.com/sncf/train?numeroTrain='.$mission->getTrain().'&date='.$mission->getDateFormatted()
+                                    'Info trafic : '.$mission->getLink()
                                 : ''),
             'CATEGORIES' => $mission->getType(),
             'STATUS' => 'CONFIRMED',
