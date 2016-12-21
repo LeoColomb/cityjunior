@@ -13,6 +13,8 @@ class MailNotification extends \PHPMailer implements NotificationInterface
     {
         parent::__construct();
 
+        $this->CharSet = 'utf-8';
+        
         $this->setLanguage('fr');
         $this->isHTML(true);
         $this->setFrom('noreply@cityjunior.clmb.fr', 'City Junior App');
