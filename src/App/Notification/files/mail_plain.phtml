@@ -11,5 +11,5 @@ Détails de la mission :
 	Arrivée : <?= $mission->getArrival(); ?>.
 	Train : <?= $mission->getTrain(); ?>.
 
-Suivi Info trafic : http://www.sncf.com/sncf/train?numeroTrain=<?= $mission->getTrain(); ?>&date=<?= $mission->getDateFormatted(); ?>.
+Suivi Info trafic : <?= $mission->getLink(); ?>.
 <?php endif; ?>
