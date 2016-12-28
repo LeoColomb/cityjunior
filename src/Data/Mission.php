@@ -16,6 +16,8 @@ use Data\Base\Mission as BaseMission;
  */
 class Mission extends BaseMission
 {
+    private $isAstreinte = null;
+
     public function getStartFormatted()
     {
         return $this->getStart()->format('G\hi');
@@ -34,5 +36,12 @@ class Mission extends BaseMission
     public function getLink()
     {
         return 'http://www.sncf.com/fr/train?numeroTrain='.$this->getTrain().'&date='.$this->getDateFormatted();
+    }
+
+    public function isAstreinte()
+    {
+        if ($this->isAstreinte === null)
+            $this->isAstreinte = $this->getType() === 'Astreinte';
+        return $this->isAstreinte;
     }
 }

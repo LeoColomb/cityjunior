@@ -7,7 +7,9 @@ Détails de la mission :
 	Départ : <?= $mission->getName(); ?>.
 	Debut : <?= $mission->getStartFormatted(); ?>.
 	Fin : <?= $mission->getEndFormatted(); ?>.
-<?php if ($mission->getArrival()) : ?>
+<?php if ($mission->isAstreinte()): ?>
+	Dosponibilité : <?= $mission->getArrival(); ?>.
+<?php else: ?>
 	Arrivée : <?= $mission->getArrival(); ?>.
 	Train : <?= $mission->getTrain(); ?>.
 

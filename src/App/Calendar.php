@@ -68,23 +68,25 @@ class Calendar
         $end->add($mission->getStart()->diff($mission->getEnd(), true));
         $event = $this->calendar->add('VEVENT', [
             'SUMMARY' => $mission->getName().
-                            ($mission->getArrival() ? ' — '.$mission->getArrival() : ''),
+                            ($mission->isAstreinte() ? '' : ' — '.$mission->getArrival()),
             'DESCRIPTION' => 'Mission City Junior'."\n\n".
                                 '  • Type : '.$mission->getType()."\n".
                                 '  • Date : '.$mission->getDateFormatted()."\n".
                                 '  • Départ : '.$mission->getName()."\n".
                                 '  • Début : '.$mission->getStartFormatted()."\n".
                                 '  • Fin : '.$mission->getEndFormatted()."\n".
-                                ($mission->getTrain() ?
-                                    '  • Arrivée : '.$mission->getArrival()."\n".
-                                    '  • Train : '.$mission->getTrain()."\n\n".
-                                    'Info trafic : '.$mission->getLink()
-                                : ''),
+                                ($mission->isAstreinte() ?
+                                '  • Disponibilité : '$mission->getArrival()
+                                :
+                                '  • Arrivée : '.$mission->getArrival()."\n".
+                                '  • Train : '.$mission->getTrain()."\n\n".
+                                'Info trafic : '.$mission->getLink()
+                                ),
             'CATEGORIES' => $mission->getType(),
             'STATUS' => 'CONFIRMED',
             'DTSTART' => $start,
             'DTEND' => $end,
-            'LOCATION' => 'Gare de '.$mission->getName()
+            'LOCATION' => 'Gare '.$mission->getName()
         ]);
         $event->add('ATTENDEE',
             'mailto:'.$this->user->getMail(),
@@ -106,7 +108,7 @@ class Calendar
             'TRIGGER' => '-P0DT0H10M0S',
             'DESCRIPTION' => 'Prise de poste'
         ]);
-        if ($mission->getType() !== 'Astreinte') {
+        if (!$mission->isAstreinte()) {
             $event->add('VALARM', [
                 'ACTION' => 'DISPLAY',
                 'TRIGGER' => 'P0DT0H20M0S',

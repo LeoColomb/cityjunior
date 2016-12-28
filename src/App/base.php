@@ -35,16 +35,17 @@ function base()
                 'user' => $user->getName(),
                 'mission' => $mission->getID()
             ]);
-            $missionRawTrain = array_reverse(explode(' - ', $missionRaw["D\xC3\xA9part/Gare"]));
+            $isAstreinte = $missionRaw['Type'] === 'Astreinte';
+            $missionRawTrain = array_reverse(explode($isAstreinte ? '-' : ' - ', $missionRaw["D\xC3\xA9part/Gare"], 2));
             $mission
                 ->setType($missionRaw['Type'])
                 ->setDate(\DateTime::createFromFormat('d/m/Y', $missionRaw['Date']))
                 ->setName($missionRawTrain[0])
                 ->setStart($missionRaw['Debut'])
-                ->setArrival($missionRaw["Arriv\xC3\xA9e"] == "\xC2\xA0" ? null : $missionRaw["Arriv\xC3\xA9e"])
+                ->setArrival($isAstreinte ? $missionRawTrain[1] : $missionRaw["Arriv\xC3\xA9e"])
                 ->setEnd($missionRaw['Fin'])
-                ->setCode($missionRaw['Code'] == "\xC2\xA0" ? null : $missionRaw['Code'])
-                ->setTrain(count($missionRawTrain) === 2 ? substr($missionRawTrain[1], -4) : null)
+                ->setCode($isAstreinte ? null : $missionRaw['Code'])
+                ->setTrain($isAstreinte ? null : substr($missionRawTrain[1], -4))
                 ->setConfirmed(strpos($missionRaw['Confirmee'], ' non ') == false)
                 ->setUserId($user->getId());
 
