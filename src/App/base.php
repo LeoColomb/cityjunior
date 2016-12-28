@@ -44,7 +44,7 @@ function base()
                 ->setArrival($missionRaw["Arriv\xC3\xA9e"] == "\xC2\xA0" ? null : $missionRaw["Arriv\xC3\xA9e"])
                 ->setEnd($missionRaw['Fin'])
                 ->setCode($missionRaw['Code'] == "\xC2\xA0" ? null : $missionRaw['Code'])
-                ->setTrain(count($missionRawTrain) === 2 ? $missionRawTrain[1] : null)
+                ->setTrain(count($missionRawTrain) === 2 ? substr($missionRawTrain[1], -4) : null)
                 ->setConfirmed(strpos($missionRaw['Confirmee'], ' non ') == false)
                 ->setUserId($user->getId());
 
