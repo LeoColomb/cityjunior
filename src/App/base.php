@@ -40,9 +40,9 @@ function base()
             $mission
                 ->setType($missionRaw['Type'])
                 ->setDate(\DateTime::createFromFormat('d/m/Y', $missionRaw['Date']))
-                ->setName($missionRawTrain[0])
+                ->setName(Mission::ucname($missionRawTrain[0]))
                 ->setStart($missionRaw['Debut'])
-                ->setArrival($isAstreinte ? $missionRawTrain[1] : $missionRaw["Arriv\xC3\xA9e"])
+                ->setArrival($isAstreinte ? $missionRawTrain[1] : Mission::ucname($missionRaw["Arriv\xC3\xA9e"]))
                 ->setEnd($missionRaw['Fin'])
                 ->setCode($isAstreinte ? null : $missionRaw['Code'])
                 ->setTrain($isAstreinte ? null : substr($missionRawTrain[1], -4))
@@ -62,7 +62,7 @@ function base()
                     ]);
                     $notif = new $notifier($mission, $user);
                     if ($notif::ATTACHEMENT_ABILITY) {
-                        $notif->attach($fetcher->attachment($mission->getId(), $mission->getType()));
+                        $notif->attach($fetcher->attachment($mission->getId(), $isAstreinte));
                     }
 
                     $notif->send();

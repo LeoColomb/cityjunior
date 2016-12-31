@@ -42,6 +42,19 @@ class Mission extends BaseMission
     {
         if ($this->isAstreinte === null)
             $this->isAstreinte = $this->getType() === 'Astreinte';
+        
         return $this->isAstreinte;
+    }
+
+    static public function ucname($string) {
+        $string = ucwords(strtolower($string));
+
+        foreach (['-', '\''] as $delimiter) {
+            if (strpos($string, $delimiter) !== false) {
+                $string = implode($delimiter, array_map('ucfirst', explode($delimiter, $string)));
+            }
+        }
+
+        return $string;
     }
 }

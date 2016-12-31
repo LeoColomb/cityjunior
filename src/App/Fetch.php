@@ -134,10 +134,9 @@ class Fetch
         return $missions;
     }
 
-    public function attachment($id, $type)
+    public function attachment($id, $isAstreinte)
     {
-        $type = $type == 'Astreinte' ? $type : 'Mission';
-        $response = $this->client->get('getPdf'.$type.'.php', [
+        $response = $this->client->get('getPdf'.($isAstreinte ? 'Astreinte' : 'Mission').'.php', [
             'query' => [
                 'num' => $id,
             ]
@@ -150,10 +149,9 @@ class Fetch
         return (string) $response->getBody();
     }
 
-    public function confirm($id, $type)
+    public function confirm($id, $isAstreinte)
     {
-        $type = $type == 'Astreinte' ? $type : 'Mission';
-        $response = $this->client->post('ajax/confirmer'.$type.'.php', [
+        $response = $this->client->post('ajax/confirmer'.($isAstreinte ? 'Astreinte' : 'Mission').'.php', [
             'form_params' => [
                 'date' => round(microtime(true) * 1000),
                 'mission' => $id,
