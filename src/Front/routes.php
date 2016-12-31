@@ -21,7 +21,7 @@ function routes(\Slim\App $app)
 {
     $app->get('/', function (Request $request, Response $response, $args) {
 
-        return $this->view->render($response, 'index.phtml', $args);
+        return $this->view->render($response, 'index.twig', $args);
     })->setName('home');
 
     $app->any('/user[/{methode}]', function (Request $request, Response $response, $args) {
@@ -63,12 +63,12 @@ function routes(\Slim\App $app)
     $app->group('/output', function () {
         $this->get('/success', function (Request $request, Response $response, $args) {
 
-            return $this->view->render($response, 'output.phtml', ['status' => 'success']);
+            return $this->view->render($response, 'output.twig', ['status' => 'success']);
         })->setName('output-success');
 
         $this->get('/error', function (Request $request, Response $response, $args) {
 
-            return $this->view->render($response, 'output.phtml', ['status' => 'error']);
+            return $this->view->render($response, 'output.twig', ['status' => 'error']);
         })->setName('output-error');
     });
 
