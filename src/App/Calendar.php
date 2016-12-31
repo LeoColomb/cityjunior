@@ -68,7 +68,7 @@ class Calendar
         $end->add($mission->getStart()->diff($mission->getEnd(), true));
         $event = $this->calendar->add('VEVENT', [
             'SUMMARY' => $mission->getName().
-                            ($mission->isAstreinte() ? '' : ' — '.$mission->getArrival()),
+                            ($mission->isAstreinte() ? '' : ' → '.$mission->getArrival()),
             'DESCRIPTION' => 'Mission City Junior'."\n\n".
                                 '  • Type : '.$mission->getType()."\n".
                                 '  • Date : '.$mission->getDateFormatted()."\n".
