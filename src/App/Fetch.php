@@ -101,7 +101,8 @@ class Fetch
             throw new \Exception('Unable to fetch with anwser: '.$response->getReasonPhrase());
         }
         $body = new \DOMDocument();
-        $body->loadHTML((string) $response->getBody());
+        //TODO: Avoid silent operator
+        @$body->loadHTML((string) $response->getBody());
         $rows = $body->getElementsByTagName('table');
         $rows = $rows->item(1);
         $rows = $rows->getElementsByTagName('tr');

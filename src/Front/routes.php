@@ -80,7 +80,7 @@ function routes(\Slim\App $app)
         {
             $this->logger->debug("Not a known user", $args);
 
-        	return false;
+            return false;
         }
         $missions = MissionQuery::create()
             ->filterByUserId($user->getId())
