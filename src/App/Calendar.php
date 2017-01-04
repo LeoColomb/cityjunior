@@ -76,7 +76,7 @@ class Calendar
                                 '  • Début : '.$mission->getStartFormatted()."\n".
                                 '  • Fin : '.$mission->getEndFormatted()."\n".
                                 ($mission->isAstreinte() ?
-                                '  • Disponibilité : '$mission->getArrival()
+                                '  • Disponibilité : '.$mission->getArrival()
                                 :
                                 '  • Arrivée : '.$mission->getArrival()."\n".
                                 '  • Train : '.$mission->getTrain()."\n\n".
