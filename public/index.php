@@ -11,29 +11,13 @@ if (PHP_SAPI == 'cli-server') {
     }
 }
 
-(new Raven_Client('https://2a603045e3ac4318987c2207e5b0bb78:32d0d90b13e543abb006a4464968d0d7@sentry.io/87174', [
+$sentryDSN = ''; // Add Sentry.io DSN
+(new Raven_Client($sentryDSN, [
     'tags' => [
         'php_version' => phpversion(),
     ],
     'version' => "2.0.1"
 ]))->install();
-// $error_handler->registerExceptionHandler();
-// $error_handler->registerErrorHandler(true, [
-//         E_ERROR,
-//         E_PARSE,
-//         E_CORE_ERROR,
-//         E_CORE_WARNING,
-//         E_COMPILE_ERROR,
-//         E_COMPILE_WARNING,
-//         E_USER_ERROR,
-//         E_USER_WARNING,
-//         E_USER_NOTICE,
-//         E_STRICT,
-//         E_RECOVERABLE_ERROR,
-//         E_DEPRECATED,
-//         E_USER_DEPRECATED,
-//     ]);
-// $error_handler->registerShutdownFunction();
 
 require_once __DIR__ . '/../generated-conf/config.php';
 
