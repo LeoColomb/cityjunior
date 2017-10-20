@@ -9,10 +9,10 @@
 propel:
     paths:
         # The directory where Propel expects to find your `schema.xml` file.
-        schemaDir: C:\Users\Leo\GitHub\cityjunior
+        schemaDir: .
 
         # The directory where Propel should output generated object model classes.
-        phpDir: C:\Users\Leo\GitHub\cityjunior\src
+        phpDir: ./src
 
         # Directory in which your composer.json resides
-        composerDir: C:\Users\Leo\GitHub\cityjunior
+        composerDir: .
