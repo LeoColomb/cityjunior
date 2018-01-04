@@ -30,7 +30,7 @@ define('LOG_LEVEL', Logger::DEBUG);
 
 $serviceContainer->setLogger('DATA', new Logger('DATA', [new StreamHandler(LOG_FILE, LOG_LEVEL)]));
 
-if ((PHP_SAPI == 'cli' && PHP_SAPI !== 'cli-server') || $_GET['pull']) {
+if ((PHP_SAPI == 'cli' && PHP_SAPI !== 'cli-server') || array_key_exists('pull', $_GET)) {
     // Then
     App\base();
 } else {
