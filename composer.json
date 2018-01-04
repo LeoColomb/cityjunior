@@ -24,5 +24,10 @@
             "src/Front/middleware.php",
             "src/Front/routes.php"
         ]
+    },
+    "scripts": {
+        "propel": [
+            "propel config:convert"
+        ]
     }
 }
