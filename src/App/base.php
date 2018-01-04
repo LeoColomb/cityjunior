@@ -4,6 +4,7 @@ namespace App;
 
 use Notification\NotificationException;
 use Data\MissionQuery;
+use Data\Mission;
 use Data\UserQuery;
 
 use Monolog\Logger;
