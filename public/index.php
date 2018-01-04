@@ -11,8 +11,8 @@ if (PHP_SAPI == 'cli-server') {
     }
 }
 
-if ($_ENV['SENTRY_DSN']) {
-    (new Raven_Client($_ENV['SENTRY_DSN'], [
+if ($_ENV['CUSTOMCONNSTR_SENTRY_DSN']) {
+    (new Raven_Client($_ENV['CUSTOMCONNSTR_SENTRY_DSN'], [
         'tags' => [
             'php_version' => phpversion(),
         ],
