@@ -11,6 +11,8 @@ if (PHP_SAPI == 'cli-server') {
     }
 }
 
+date_default_timezone_set('Europe/Paris');
+
 if ($_ENV['CUSTOMCONNSTR_SENTRY_DSN']) {
     (new Raven_Client($_ENV['CUSTOMCONNSTR_SENTRY_DSN'], [
         'tags' => [
