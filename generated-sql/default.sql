@@ -19,6 +19,7 @@ CREATE TABLE `cj__missions`
     `arrival` VARCHAR(250),
     `end` TIME NOT NULL,
     `code` FLOAT,
+    `train` INTEGER,
     `confirmed` TINYINT(1) DEFAULT 0 NOT NULL,
     `user_id` INTEGER DEFAULT 0 NOT NULL,
     PRIMARY KEY (`ID`),

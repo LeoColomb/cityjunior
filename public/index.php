@@ -11,13 +11,14 @@ if (PHP_SAPI == 'cli-server') {
     }
 }
 
-$sentryDSN = ''; // Add Sentry.io DSN
-(new Raven_Client($sentryDSN, [
-    'tags' => [
-        'php_version' => phpversion(),
-    ],
-    'version' => "2.0.1"
-]))->install();
+if ($_ENV['SENTRY_DSN']) {
+    (new Raven_Client($_ENV['SENTRY_DSN'], [
+        'tags' => [
+            'php_version' => phpversion(),
+        ],
+        'version' => "2.0.1"
+    ]))->install();
+}
 
 require_once __DIR__ . '/../generated-conf/config.php';
 
