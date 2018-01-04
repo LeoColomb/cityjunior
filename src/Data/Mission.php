@@ -32,17 +32,17 @@ class Mission extends BaseMission
     {
         return $this->getDate()->format('d/m/Y');
     }
-    
+
     public function getLink()
     {
-        return 'http://www.sncf.com/fr/train?numeroTrain='.$this->getTrain().'&date='.$this->getDateFormatted();
+        return 'http://www.sncf.com/sncf/train?numeroTrain='.$this->getTrain().'&date='.urlencode($this->getDateFormatted());
     }
 
     public function isAstreinte()
     {
         if ($this->isAstreinte === null)
             $this->isAstreinte = $this->getType() === 'Astreinte';
-        
+
         return $this->isAstreinte;
     }
 
